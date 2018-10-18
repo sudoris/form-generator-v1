@@ -1,6 +1,6 @@
 <template>
-  <div>    
-      
+  <div v-if="showInputField">   
+    
     <div v-for="(field, key) in fieldParams.properties" :key="key">   
       
       <fieldset>
@@ -49,10 +49,28 @@ export default {
         else if (type === 'checklist') {
           return 'CheckList'
         }
-      }      
+      },
+      clearInput() {
+				// this.value[this.fieldParams.fieldName] = null
+				this.$set(this.value, this.fieldParams.fieldName, '');
+			}      
     },
     computed: {
-      
+      showInputField() {
+        if (this.fieldParams.attrs) {
+
+          if (!(this.fieldParams.attrs.dependencies) || 
+                (this.value[this.fieldParams.attrs.dependencies.name] === this.fieldParams.attrs.dependencies.value)) {
+                return true
+              }
+              else {
+                this.clearInput()
+                return false
+            }
+        } else {
+          return true
+        }
+      }
       
     },
     props: ['fieldParams', 'value'],
@@ -67,9 +85,10 @@ export default {
           // this.$emit('input', this.value)
           this.$set(this.value, this.currentFieldName, {});
           //this.value["keyOnCreate"] = {};
-          this.$emit("input", this.value);
+          // this.$emit("input", this.value);
         }
     }
+    
     
 }
 </script>

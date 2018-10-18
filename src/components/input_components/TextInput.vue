@@ -7,11 +7,11 @@
             <input id="text-input" type="text" v-bind:name="fieldParams.fieldName" v-model="value[fieldParams.fieldName]">
             <br>
 						<br>
-						{{ value }}
+						
 						<br>
             <br>
 
-						{{ fieldParams }}
+						
             
             <br>
             <br>
@@ -29,6 +29,7 @@ export default {
     },
     props: ['fieldParams', 'value'],
     data () {
+
         return {
            
         }
@@ -41,13 +42,24 @@ export default {
 		},
 		computed: {
 				showInputField() {
-						if (this.value[this.fieldParams.attrs.dependencies.name] === this.fieldParams.attrs.dependencies.value) {
-								return true
+					if (this.fieldParams.attrs) {
+						if (!(this.fieldParams.attrs.dependencies) || 
+							 (this.value[this.fieldParams.attrs.dependencies.name] === this.fieldParams.attrs.dependencies.value)) {
+							return true
 						}
 						else {
-								this.clearInput()
-								return false
+							this.clearInput()
+							return false
 						}
+					}
+
+						// if (this.value[this.fieldParams.attrs.dependencies.name] === this.fieldParams.attrs.dependencies.value) {
+						// 		return true
+						// }
+						// else {
+						// 		this.clearInput()
+						// 		return false
+						// }
 				}
 		}
     // watch: {

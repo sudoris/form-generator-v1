@@ -75,7 +75,7 @@ export default {
             description: "Drug Allergies",
             type: "object",
             fieldName: "allergies",
-            label: "Drug Allergies",
+            label: "Drug Allergies",            
             properties: {
               hasAllergies: {
                 description: "allergies",
@@ -95,6 +95,41 @@ export default {
                     name: 'hasAllergies',
                     value: 'Yes'
                   }
+                }
+              },
+              severity: {
+                description: 'severity level',
+                type: 'object',
+                fieldName: 'severity',
+                label: 'Severity Level',
+                attrs: {
+                  dependencies: {
+                    name: 'allergiesList',
+                    value: 'ok'
+                  }
+                },
+                properties: {
+                  lifeThreatening: {
+                    description: "Life threatening",
+                    type: 'radio',
+                    fieldName: 'lifeThreatening',
+                    label: 'Is drug life threatening',
+                    values: ['Yes', 'No']
+                  },
+                  someText: {
+                    description: "someText",
+                    type: "string",
+                    fieldName: "someText",
+                    label: "someText",
+                    attrs: {
+                      hidden: true,
+                      dependencies: {
+                        name: 'lifeThreatening',
+                        value: 'Yes'
+                      }
+                    }
+                  }
+
                 }
               }
             }
