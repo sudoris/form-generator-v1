@@ -10,10 +10,7 @@
           v-bind:fieldParams="field" 
           v-model="value[currentFieldName]" >         
         </component>   
-      </fieldset>
-      
-            
-      
+      </fieldset>                    
                                    
     </div>
     
@@ -51,8 +48,11 @@ export default {
         }
       },
       clearInput() {
-				// this.value[this.fieldParams.fieldName] = null
-				this.$set(this.value, this.fieldParams.fieldName, '');
+        // this.value[this.fieldParams.fieldName] = null
+        if ((this.currentFieldName in this.value)) {
+          this.$set(this.value, this.currentFieldName, {});
+        }
+				
 			}      
     },
     computed: {
@@ -62,7 +62,7 @@ export default {
           if (!(this.fieldParams.attrs.dependencies) || 
                 (this.value[this.fieldParams.attrs.dependencies.name] === this.fieldParams.attrs.dependencies.value)) {
                 return true
-              }
+              }               
               else {
                 this.clearInput()
                 return false

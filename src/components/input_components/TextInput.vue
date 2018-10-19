@@ -5,16 +5,7 @@
         <div v-if="showInputField">
             <label v-bind:for="fieldParams.fieldName">{{ fieldParams.label }}:</label>
             <input id="text-input" type="text" v-bind:name="fieldParams.fieldName" v-model="value[fieldParams.fieldName]">
-            <br>
-						<br>
-						
-						<br>
-            <br>
-
-						
-            
-            <br>
-            <br>
+            			
             
         </div>            
     </div>
@@ -31,13 +22,15 @@ export default {
     data () {
 
         return {
-           
+           currentFieldName: this.fieldParams.fieldName
         }
 		},
 		methods: {
 			clearInput() {
 				// this.value[this.fieldParams.fieldName] = null
-				this.$set(this.value, this.fieldParams.fieldName, '');
+				if ((this.currentFieldName in this.value)) {
+					this.$set(this.value, this.currentFieldName, '');
+				}
 			}
 		},
 		computed: {
