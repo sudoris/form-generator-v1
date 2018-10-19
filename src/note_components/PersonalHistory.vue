@@ -1,16 +1,16 @@
 <template>
   <div>
-    <VueSchema :schema="schema" :schemaData="schemaData"></VueSchema>
+    <Section :schema="schema" :schemaData="schemaData"></Section>
   </div>
 </template>
 
 <script>
- import VueSchema from "../components/VueSchema" 
+ import Section from "../components/Section" 
 
 
 export default {
   components: {
-    VueSchema
+    Section
   },
   data() {
     return {

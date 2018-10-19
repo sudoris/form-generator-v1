@@ -1,3 +1,4 @@
+
 <template>
     <div> 
 			<fieldset>
@@ -11,9 +12,9 @@
 </template>
 
 <script>
-// Imports
 
 export default {
+
   props: {
     schema: {
       type: Object,
@@ -36,26 +37,23 @@ export default {
 	methods: {
 		clearInput() {
 			// this.value[this.schema.fieldName] = null
-			this.$set(this.value, this.schema.fieldName, '');
+			if ((this.currentFieldName in this.value)) {
+				this.$set(this.value, this.currentFieldName, '');
+			}
 		}
 	},
 	computed: {
 		showInputField() {
-			if (this.schema && this.schema.attrs && this.schema.attrs.dependencies) {
-				
-				return true
-			}
-			else {
+			if (this.schema.attrs) {
+				if (!(this.schema.attrs.dependencies) || (this.value[this.schema.attrs.dependencies.name] === this.schema.attrs.dependencies.value)) {
+					return true
+				}else {
 				this.clearInput()
-				return false
+					return false
+				}	
 			}
 		}
 	}
-// watch: {
-//   value: function() {
-//     this.$emit('input', this.value)
-//   }
-// }
 }
 </script>
 

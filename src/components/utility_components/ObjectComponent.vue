@@ -1,11 +1,13 @@
 <template>
   <div>    
-    <div v-for="(field, key) in schema.properties" :key="key">   
-      <component 
-        :is="getComponentName(field.type)" 
-        v-bind:schema="field"
-        v-model="value[currentFieldName]">         
-      </component>
+    <div v-if="showInputField"> 
+      <div v-for="(field, key) in schema.properties" :key="key">   
+        <component 
+          :is="getComponentName(field.type)" 
+          v-bind:schema="field"
+          v-model="value[currentFieldName]">         
+        </component>
+      </div>
     </div>
   </div>
 </template>
@@ -41,13 +43,12 @@ export default {
           currentFieldName: this.schema.fieldName
       }
   },
-  created: function() {
+  created() {
       if (!(this.currentFieldName in this.value)) {
         // this.value[this.currentFieldName] = {}
         // this.$emit('input', this.value)
         this.$set(this.value, this.currentFieldName, {});
         //this.value["keyOnCreate"] = {};
-        this.$emit("input", this.value);
       }
   },
   methods: {        
@@ -65,9 +66,28 @@ export default {
         case "object": 
           return "ObjectComponent"
       }
-    }      
+    },
+    clearInput() {
+    // this.value[this.schema.fieldName] = null
+      if ((this.currentFieldName in this.value)) {
+        this.$set(this.value, this.currentFieldName, {});
+      }
+    }       
   },
-    
+  computed: {
+    showInputField() {
+      if (this.schema.attrs) {
+        if (!(this.schema.attrs.dependencies) || (this.value[this.schema.attrs.dependencies.name] === this.schema.attrs.dependencies.value)) {
+          return true
+          }else {
+            this.clearInput()
+            return false
+          }
+      }else {
+        return true
+      }
+    }
+  }
 }
 </script>
 

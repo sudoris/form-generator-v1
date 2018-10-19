@@ -17,7 +17,7 @@ import CheckList from "./input_components/CheckList"
 import ObjectComponent from "./utility_components/ObjectComponent"
 
 export default {
-  name: 'VueSchema',
+  name: 'Section',
   components: {
     TextInput,
     RadioInput,
