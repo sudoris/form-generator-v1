@@ -1,12 +1,27 @@
 <template>
   <div id="app">    
-    <router-view/>
+    <PersonalHistory></PersonalHistory>
+    <ReviewOfTheSystem></ReviewOfTheSystem>
   </div>
 </template>
 
 <script>
+import PersonalInfo from "./note_components/PersonalInfo"
+import PersonalHistory from "./note_components/PersonalHistory"
+import ReviewOfTheSystem from "./note_components/ReviewOfTheSystem"
+
+
 export default {
-  name: 'App'
+  components: {
+    PersonalHistory,
+    PersonalInfo,
+    ReviewOfTheSystem
+  },
+  data() {
+    return {
+
+    }
+  }
 }
 </script>
 
